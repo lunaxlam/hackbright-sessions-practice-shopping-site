@@ -35,8 +35,6 @@ def read_customers_from_file(filepath):
                 password
             ) = line.strip().split("|")
 
-            price = float(price)
-
             customers[email] = Customer(
                 first_name,
                 last_name,

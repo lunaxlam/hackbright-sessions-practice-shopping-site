@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
                     <a class="nav-link" href="/cart"> <img class="melon-cart" src="/static/img/watermelon.png">My Melon Cart</a>
-                    {% if "logged_in_customer email" in session %}
+                    {% if "logged_in_customer_email" in session %}
                     <a class="nav-link" href="/logout">Log Out</a>
                     {% else %}
                     <a class="nav-link" href="/login">Log In</a>

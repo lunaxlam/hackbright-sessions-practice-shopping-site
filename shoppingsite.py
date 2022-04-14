@@ -145,7 +145,7 @@ def process_login():
     password = request.form.get("password")
     
     # use customers.get_by_email() to retrieve corresponding Customer
-    if email in customers:
+    if email in customers.customers:
         customer = customers.get_by_email(email)
 
         if password == customer.password:
@@ -160,12 +160,12 @@ def process_login():
             # flash a warning message
             flash("Incorrect password.")
 
-            return redirect("/login", methods=["GET"])
+            return redirect("/login")
     else:
         # flash a warning message
         flash("Log-in failed!")
 
-        return redirect("/login", methods=["GET"])
+        return redirect("/login")
 
 
 @app.route("/checkout")
