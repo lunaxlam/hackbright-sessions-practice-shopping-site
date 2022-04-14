@@ -6,11 +6,14 @@ put melons in a shopping cart.
 Authors: Joel Burton, Christian Fernandez, Meggie Mahnken, Katie Byers.
 """
 
+# import the following from flask and import jinja
 from flask import Flask, render_template, redirect, flash, session, request
 import jinja2
 
+# import local melons and customers files
 import melons, customers
 
+# create a Flask instance
 app = Flask(__name__)
 
 # A secret key is needed to use Flask sessioning features
@@ -38,6 +41,7 @@ def index():
 def list_melons():
     """Return page showing all the melons ubermelon has to offer"""
 
+    # In order to access the get_all(), we need to call it on our melons file
     melon_list = melons.get_all()
     return render_template("all_melons.html",
                            melon_list=melon_list)
@@ -66,9 +70,10 @@ def show_shopping_cart():
         # flash a warning message
         flash("No items in cart!")
 
-        return redirect("/cart")
+        return redirect("/melons")
+
     else:
-        # get the cart dictionary out of the session
+        # access the cart dictionary from the session and set it to a variable
         cart = session["cart"]
 
         # create a list to hold each Melon object
@@ -107,7 +112,7 @@ def add_to_cart(melon_id):
     page and display a confirmation message: 'Melon successfully added to
     cart'."""
 
-    # check if the key "cart" is already added in the session (session = {"cart": {melon_id: count}})
+    # check if the key "cart" is already added in the session (session = {"cart": [{melon_id: count}]})
     if "cart" in session:
         cart = session["cart"]
     else:
@@ -115,7 +120,7 @@ def add_to_cart(melon_id):
         cart = session["cart"] = {}
 
     # check if the desired melon id is the cart, and if not, put it in; increment the count for that melon id by 1
-    # cart[melon_id] is the key
+    # cart[melon_id] is the key and tracks the total count of melons by that melon_id in the "cart" key of session
     cart[melon_id] = cart.get(melon_id, 0) + 1
 
     # flash a success message
